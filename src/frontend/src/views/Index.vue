@@ -9,27 +9,20 @@
             <h2 class="title title--small sheet__title">Выберите тесто</h2>
 
             <div class="sheet__content dough">
-              <label class="dough__input dough__input--light">
+              <label
+                v-for="doughItem in dough"
+                :key="doughItem.id"
+                :class="`dough__input dough__input--${doughItem.latinName}`"
+              >
                 <input
                   type="radio"
                   name="dought"
-                  value="light"
+                  :value="doughItem.latinName"
                   class="visually-hidden"
-                  checked
+                  :checked="doughItem.id === 1"
                 />
-                <b>Тонкое</b>
-                <span>Из твердых сортов пшеницы</span>
-              </label>
-
-              <label class="dough__input dough__input--large">
-                <input
-                  type="radio"
-                  name="dought"
-                  value="large"
-                  class="visually-hidden"
-                />
-                <b>Толстое</b>
-                <span>Из твердых сортов пшеницы</span>
+                <b>{{ doughItem.name }}</b>
+                <span>{{ doughItem.description }}</span>
               </label>
             </div>
           </div>
@@ -40,33 +33,19 @@
             <h2 class="title title--small sheet__title">Выберите размер</h2>
 
             <div class="sheet__content diameter">
-              <label class="diameter__input diameter__input--small">
+              <label
+                v-for="size in sizes"
+                :key="size.id"
+                :class="`diameter__input diameter__input--${size.value}`"
+              >
                 <input
                   type="radio"
                   name="diameter"
-                  value="small"
+                  :value="size.value"
                   class="visually-hidden"
+                  :checked="size.id === 2"
                 />
-                <span>23 см</span>
-              </label>
-              <label class="diameter__input diameter__input--normal">
-                <input
-                  type="radio"
-                  name="diameter"
-                  value="normal"
-                  class="visually-hidden"
-                  checked
-                />
-                <span>32 см</span>
-              </label>
-              <label class="diameter__input diameter__input--big">
-                <input
-                  type="radio"
-                  name="diameter"
-                  value="big"
-                  class="visually-hidden"
-                />
-                <span>45 см</span>
+                <span>{{ size.name }}</span>
               </label>
             </div>
           </div>
@@ -508,7 +487,23 @@
 </template>
 
 <script>
+import pizza from "@/static/pizza.json";
+import { normalizeDough, normalizeSize } from "@/common/helpers";
+
 export default {
   name: "IndexHome",
+  data() {
+    return {
+      pizza,
+    };
+  },
+  computed: {
+    dough() {
+      return this.pizza.dough.map((doughItem) => normalizeDough(doughItem));
+    },
+    sizes() {
+      return this.pizza.sizes.map((size) => normalizeSize(size));
+    },
+  },
 };
 </script>
