@@ -25,4 +25,18 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.header__login::after {
+  content: "";
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+  background: url("~@/assets/img/login.svg") no-repeat center;
+  background-size: auto 50%;
+}
+
+.header__login::after {
+  margin-left: 8px;
+}
+</style>
