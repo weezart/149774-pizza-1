@@ -1,32 +1,17 @@
-import sizeValues from "@/common/enums/sizeValues";
-import sauceValues from "@/common/enums/sauceValues";
-import doughNames from "@/common/enums/doughNames";
-import ingredientNames from "@/common/enums/ingredientNames";
+import sizeSlugs from "@/common/enums/sizeSlugs";
+import sauceSlugs from "@/common/enums/sauceSlugs";
+import doughSlugs from "@/common/enums/doughSlugs";
+import ingredientSlugs from "@/common/enums/ingredientSlugs";
 
-export const normalizeDough = (doughItem) => {
+const normalizeItem = (item, itemSlugs) => {
   return {
-    ...doughItem,
-    latinName: doughNames[doughItem.id],
+    ...item,
+    slug: itemSlugs[item.id],
   };
 };
 
-export const normalizeSize = (size) => {
-  return {
-    ...size,
-    value: sizeValues[size.id],
-  };
-};
-
-export const normalizeSauce = (sauce) => {
-  return {
-    ...sauce,
-    sauce: sauceValues[sauce.id],
-  };
-};
-
-export const normalizeIngredient = (ingredient) => {
-  return {
-    ...ingredient,
-    latinName: ingredientNames[ingredient.id],
-  };
-};
+export const normalizeDough = (item) => normalizeItem(item, doughSlugs);
+export const normalizeSize = (item) => normalizeItem(item, sizeSlugs);
+export const normalizeSauce = (item) => normalizeItem(item, sauceSlugs);
+export const normalizeIngredient = (item) =>
+  normalizeItem(item, ingredientSlugs);

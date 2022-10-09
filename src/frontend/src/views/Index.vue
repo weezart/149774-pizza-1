@@ -12,12 +12,12 @@
               <label
                 v-for="doughItem in dough"
                 :key="doughItem.id"
-                :class="`dough__input dough__input--${doughItem.latinName}`"
+                :class="`dough__input dough__input--${doughItem.slug}`"
               >
                 <input
                   type="radio"
                   name="dought"
-                  :value="doughItem.latinName"
+                  :value="doughItem.slug"
                   class="visually-hidden"
                   :checked="doughItem.id === 1"
                 />
@@ -36,12 +36,12 @@
               <label
                 v-for="size in sizes"
                 :key="size.id"
-                :class="`diameter__input diameter__input--${size.value}`"
+                :class="`diameter__input diameter__input--${size.slug}`"
               >
                 <input
                   type="radio"
                   name="diameter"
-                  :value="size.value"
+                  :value="size.slug"
                   class="visually-hidden"
                   :checked="size.id === 2"
                 />
@@ -69,7 +69,7 @@
                   <input
                     type="radio"
                     name="sauce"
-                    :value="sauce.value"
+                    :value="sauce.slug"
                     :checked="sauce.id === 1"
                   />
                   <span>{{ sauce.name }}</span>
@@ -85,7 +85,7 @@
                     :key="ingredient.id"
                     class="ingredients__item"
                   >
-                    <span :class="`filling filling--${ingredient.latinName}`">
+                    <span :class="`filling filling--${ingredient.slug}`">
                       {{ ingredient.name }}
                     </span>
 
@@ -165,18 +165,16 @@ export default {
   },
   computed: {
     dough() {
-      return this.pizza.dough.map((doughItem) => normalizeDough(doughItem));
+      return this.pizza.dough.map(normalizeDough);
     },
     sizes() {
-      return this.pizza.sizes.map((size) => normalizeSize(size));
+      return this.pizza.sizes.map(normalizeSize);
     },
     sauces() {
-      return this.pizza.sauces.map((sauce) => normalizeSauce(sauce));
+      return this.pizza.sauces.map(normalizeSauce);
     },
     ingredients() {
-      return this.pizza.ingredients.map((ingredient) =>
-        normalizeIngredient(ingredient)
-      );
+      return this.pizza.ingredients.map(normalizeIngredient);
     },
   },
 };
