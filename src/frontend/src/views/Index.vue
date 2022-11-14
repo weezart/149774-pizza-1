@@ -4,29 +4,7 @@
       <div class="content__wrapper">
         <h1 class="title title--big">Конструктор пиццы</h1>
 
-        <div class="content__dough">
-          <div class="sheet">
-            <h2 class="title title--small sheet__title">Выберите тесто</h2>
-
-            <div class="sheet__content dough">
-              <label
-                v-for="doughItem in dough"
-                :key="doughItem.id"
-                :class="`dough__input dough__input--${doughItem.slug}`"
-              >
-                <input
-                  type="radio"
-                  name="dought"
-                  :value="doughItem.slug"
-                  class="visually-hidden"
-                  :checked="doughItem.id === 1"
-                />
-                <b>{{ doughItem.name }}</b>
-                <span>{{ doughItem.description }}</span>
-              </label>
-            </div>
-          </div>
-        </div>
+        <BuilderDoughSelector :dough="dough" />
 
         <div class="content__diameter">
           <div class="sheet">
@@ -148,6 +126,7 @@
 </template>
 
 <script>
+import BuilderDoughSelector from "@/modules/builder/BuilderDoughSelector";
 import pizza from "@/static/pizza.json";
 import {
   normalizeDough,
@@ -157,6 +136,9 @@ import {
 } from "@/common/helpers";
 
 export default {
+  components: {
+    BuilderDoughSelector,
+  },
   name: "IndexHome",
   data() {
     return {
